@@ -1,43 +1,45 @@
 from __future__ import division
-from visual import*
+from visual import *
 
 scene = display(center = (0, 0, 10), width = 750, height = 400, y = 100, 
 	range = 22, background = (0.93, 0.93, 0.83), forward = (0, -1, -5))
 
-# define position
+
+# Define position
 pos1_cen = vector(0, 0, 0)
 dist = 18
 start_pos = 2
 pos1 = [pos1_cen + vector(-dist, 0, 0), pos1_cen + vector(dist, 0, 0)]
 
-# define size
+
+# Define size
 box_len = 6
 box_hei = 5
 box_wid = 3
 theta = [-30/180*3.14, 0, 30/180*3.14]
 
-# velocity
+# Velocity
 v = 0.4
 p_v = [vector(-v, 0, 0), vector(v, 0, 0)]
 
-# define color
-dark_color = [(0.05, 0.3, 0.2), (0.5, 0.05, 0.05)] # green and red
+# Define color of each object.
+dark_color = [(0.05, 0.3, 0.2), (0.5, 0.05, 0.05)]  # Green and red.
 light_color = [(0.05, 0.7, 0.4), (1, 0.1, 0.1)]
 box_color = (0.6, 0.8, 0.85) #(0.5, 0.5, 0.5)
 arrow_dark_color = (0.3, 0.3, 0.3)
 arrow_light_color = (0.85, 0.7, 0)
 particle_color = (0.4, 0.4, 0.5)
 
-# object container
+# Object containers.
 source = []
 launcher = []
 detector = []
 switch = []
-switch_id_text = [] # 1, 2, 3
+switch_id_text = []  # 1, 2, 3
 switch_text = []
 light = []
 light_text = []
-p = [] # particle
+p = []  # Particle
 
 for i in range(2):
 	p.append(sphere(pos = pos1_cen, radius = 0.6, color = particle_color))
@@ -95,13 +97,13 @@ def switch_light():
 			box = False, line = False, color = (0.1, 0.1, 0.1), font = 'monospace', opacity = 0))
 	content.text = "There are 3 switches (1, 2, 3) and\n2 lights (red, green) on both detectors."
 
+	
 def introduce():
 	content.text = "Each switch points to a number randomly and uniformly.\n\
 	P(switch = 1) = P(2) = P(3) = 1/3"
 	for j in range(3):
 		for i in range(2):
 			switch[i][(j+2*i)%3].color = arrow_light_color
-			#switch_text_visible(switch_id)
 			l_text = "Switch = " + str((j+2*i)%3+1)
 			switch_text[i].text = l_text
 			switch_text[i].visible = True
@@ -110,30 +112,43 @@ def introduce():
 			switch[i][(j+2*i)%3].color = arrow_dark_color
 			switch_text[i].visible = False
 
+			
 def light_text_visible(colors):
 	for i in range(2):
-		if colors[i] == 0: l_text = "Green light fires"
-		elif colors[i] == 1: l_text = "Red light fires"
-		else: l_text = "No light"
+		if colors[i] == 0: 
+			l_text = "Green light fires"
+		elif colors[i] == 1: 
+			l_text = "Red light fires"
+		else: 
+			l_text = "No light"
 		light_text[i].text = l_text
 		light_text[i].color = light_color[colors[i]]
 		light_text[i].visible = True
 
+		
 def switch_text_visible(switch_id):
 	for i in range(2):
 		l_text = "Switch = " + str(switch_id[i]+1)
 		switch_text[i].text = l_text
 		switch_text[i].visible = True
 
-# animation start
+		
+# Animation starts here.
 def detect_light_id(left, right):
-	if left == "G": x = 0
-	elif left == "R": x = 1
-	else: print "Error: wrong color"
-	if right == "G": y = 0
-	elif right == "R": y = 1
-	else: print "Error: wrong color"
+	if left == "G": 
+		x = 0
+	elif left == "R": 
+		x = 1
+	else: 
+		print "Error: wrong color"
+	if right == "G": 
+		y = 0
+	elif right == "R": 
+		y = 1
+	else: 
+		print "Error: wrong color"
 	return [x, y]
+
 
 def launch(p, light_id, switch_id, t):
 	colors = detect_light_id(light_id[0], light_id[1])
@@ -165,12 +180,14 @@ def launch(p, light_id, switch_id, t):
 
 	sleep(1)
 
+	
 source_detector(p)
 sleep(1)
 switch_light()
 sleep(5)
 introduce()
 sleep(0.5)
+
 
 content.text = "In each round, each switch points randomly to a position.\n\
 -> The source launches.\n-> A light fires."
@@ -183,9 +200,7 @@ content.text = "If two switches point to different numbers, \nthe lights' colors
 that will be introduced later."
 launch(p, light_id = ["R", "R"], switch_id = [0, 1], t = 7)
 
+
 scene.delete()
 print "\n-------- End! ---------"
-exit()
-
-
 

@@ -1,6 +1,7 @@
+import argparse
 import numpy as np
 import random
-import argparse
+
 
 class Mermin(object):
 	def __init__(self, ro):
@@ -8,8 +9,8 @@ class Mermin(object):
 		self.lamp_number = 3
 		self.round = ro
 
-		self.seq1 = [0,0,1]
-		self.seq2 = [0,0,1]
+		self.seq1 = [0, 0, 1]
+		self.seq2 = [0, 0, 1]
 
 		self.rr = 0
 		self.rg = 0
@@ -25,76 +26,81 @@ class Mermin(object):
 		self.n = None
 
 	def case1(self):
-		self.seq1 = [0, 0, 0]  #R:0, G:1
+		self.seq1 = [0, 0, 0]  # R: 0, G: 1
 		self.seq2 = [0, 0, 0]
 
 		for r in range(self.round):
 			sw = random.sample(range(self.switch_number), 2)
-			sw1 = sw[0] # A machine switch
-			sw2 = sw[1] # B machine switch
+			sw1 = sw[0]  # A machine switches
+			sw2 = sw[1]  # B machine switches
 
-			if self.seq1[sw1] == self.seq2[sw2]: self.same += 1
+			if self.seq1[sw1] == self.seq2[sw2]: 
+				self.same += 1
 
-		prob = float(self.same)/self.round
+		prob = float(self.same) / self.round
 		print prob
 
 		return prob
 
 	def case2(self):
-		self.seq1 = [0, 0, 1]  #R:0, G:1
+		self.seq1 = [0, 0, 1]  # R: 0, G: 1
 		self.seq2 = [0, 0, 1]
 
 		for r in range(self.round):
 			sw = random.sample(range(self.switch_number), 2)
-			sw1 = sw[0] # A machine switch
-			sw2 = sw[1] # B machine switch
+			sw1 = sw[0]  # A machine switches
+			sw2 = sw[1]  # B machine switches
 
-			if self.seq1[sw1] == self.seq2[sw2]: self.same += 1
-			else: self.diff += 1
+			if self.seq1[sw1] == self.seq2[sw2]: 
+				self.same += 1
+			else: 
+				self.diff += 1
 
-		prob = float(self.same)/self.round
+		prob = float(self.same) / self.round
 		print prob
 
 		return prob
 
 	def case3(self):
-		self.seq1 = [0, 0, 0]  #R:0, G:1
-		self.seq2 = [0, 0, 2]  #N:2
+		self.seq1 = [0, 0, 0]  # R: 0, G: 1
+		self.seq2 = [0, 0, 2]  # N: 2
 
 		for r in range(self.round):
 			sw = random.sample(range(self.switch_number), 2)
-			sw1 = sw[0] # A machine switch
-			sw2 = sw[1] # B machine switch
+			sw1 = sw[0]  # A machine switches
+			sw2 = sw[1]  # B machine switches
 
 			if self.seq2[sw2] == 2:
 				self.null += 1
 				continue
+			elif self.seq1[sw1] == self.seq2[sw2]: 
+				self.same += 1
+			else: 
+				self.diff += 1
 
-			elif self.seq1[sw1] == self.seq2[sw2]: self.same += 1
-			else: self.diff += 1
-
-		prob = float(self.same)/(self.round-self.null)
+		prob = float(self.same) / (self.round-self.null)
 		print prob
 
 		return prob
 
 	def case4(self):
-		self.seq1 = [0, 0, 1]  #R:0, G:1
-		self.seq2 = [0, 2, 1]  #N:2
+		self.seq1 = [0, 0, 1]  # R: 0, G: 1
+		self.seq2 = [0, 2, 1]  # N: 2
 
 		for r in range(self.round):
 			sw = random.sample(range(self.switch_number), 2)
-			sw1 = sw[0] # A machine switch
-			sw2 = sw[1] # B machine switch
+			sw1 = sw[0]  # A machine switches
+			sw2 = sw[1]  # B machine switches
 
 			if self.seq2[sw2] == 2:
 				self.null += 1
 				continue
+			elif self.seq1[sw1] == self.seq2[sw2]: 
+				self.same += 1
+			else: 
+				self.diff += 1
 
-			elif self.seq1[sw1] == self.seq2[sw2]: self.same += 1
-			else: self.diff += 1
-
-		prob = float(self.same)/(self.round-self.null)
+		prob = float(self.same) / (self.round-self.null)
 		print prob
 
 		return prob	
@@ -105,15 +111,16 @@ class Mermin(object):
 
 		for r in range(self.round):
 			sw = random.sample(range(self.switch_number), 2)
-			sw1 = sw[0] # A machine switch
-			sw2 = sw[1] # B machine switch
+			sw1 = sw[0]  # A machine switches
+			sw2 = sw[1]  # B machine switches
 
 			if self.seq2[sw2] == 2:
 				self.null += 1
 				continue
-
-			elif self.seq1[sw1] == self.seq2[sw2]: self.same += 1
-			else: self.diff += 1
+			elif self.seq1[sw1] == self.seq2[sw2]: 
+				self.same += 1
+			else: 
+				self.diff += 1
 
 		prob = float(self.same)/(self.round-self.null)
 		print prob
@@ -135,24 +142,8 @@ def main(args=None):
 	mermin = Mermin(args.round)
 	mermin.case1()
 
+	
 if __name__ == '__main__':
 	main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
